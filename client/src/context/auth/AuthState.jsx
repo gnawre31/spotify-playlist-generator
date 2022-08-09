@@ -2,6 +2,8 @@ import { useContext, useEffect, useReducer } from "react";
 import AuthContext from "./authContext";
 import authReducer from "./AuthReducer";
 import axios from "axios";
+import QueryString from "qs";
+
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext);
   return [state, dispatch];
@@ -9,11 +11,12 @@ export const useAuth = () => {
 
 export const reqConfig = async (state, dispatch) => {
   await refreshAccessToken(state, dispatch);
-  return {
+  const config = {
     headers: {
       Authorization: "Bearer " + state.accessToken,
     },
   };
+  return config;
 };
 
 const refreshAccessToken = async (state, dispatch) => {
@@ -21,6 +24,7 @@ const refreshAccessToken = async (state, dispatch) => {
     grant_type: "refresh_token",
     refresh_token: state.refreshToken,
   };
+
   try {
     const res = await axios.post(
       "https://accounts.spotify.com/api/token",
@@ -31,9 +35,9 @@ const refreshAccessToken = async (state, dispatch) => {
           Authorization:
             "basic " +
             window.btoa(
-              process.env.REACT_APP_SPOTIFY_CLIENT_ID +
+              import.meta.env.VITE_SPOTIFY_CLIENT_ID +
                 ":" +
-                process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+                import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
             ),
         },
       }
@@ -46,7 +50,6 @@ const refreshAccessToken = async (state, dispatch) => {
 
 const AuthState = (props) => {
   useEffect(() => {
-    console.log("fetching user");
     const getUser = async () => {
       const res = await axios.get(
         process.env.NODE_ENV === "development"

@@ -7,7 +7,7 @@ const Home = () => {
       <div>
         <a
           href={
-            process.env.NODE_ENV === "development"
+            import.meta.env.MODE === "development"
               ? "http://localhost:5001/api/auth/spotify"
               : "/api/auth/spotify"
           }
