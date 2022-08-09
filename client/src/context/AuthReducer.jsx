@@ -9,6 +9,11 @@ const AuthReducer = (state, action) => {
         displayName: action.payload.data.displayName,
         pic: action.payload.data.pic,
       };
+    case "SET_ACCESS_TOKEN":
+      return {
+        ...state,
+        accessToken: action.payload,
+      };
     default:
       return state;
   }

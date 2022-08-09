@@ -7,7 +7,16 @@ export const useAuth = () => {
   return [state, dispatch];
 };
 
-export const refreshAccessToken = async () => {
+export const reqConfig = async (state, dispatch) => {
+  await refreshAccessToken(state, dispatch);
+  return {
+    headers: {
+      Authorization: "Bearer " + state.accessToken,
+    },
+  };
+};
+
+const refreshAccessToken = async (state, dispatch) => {
   const body = {
     grant_type: "refresh_token",
     refresh_token: state.refreshToken,
@@ -29,7 +38,7 @@ export const refreshAccessToken = async () => {
         },
       }
     );
-    dispatch({ type: SET_ACCESS_TOKEN, payload: res.data.access_token });
+    dispatch({ type: "SET_ACCESS_TOKEN", payload: res.data.access_token });
   } catch (err) {
     console.log(err);
   }
