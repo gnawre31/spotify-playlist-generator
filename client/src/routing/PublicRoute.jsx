@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthState";
+import { useAuth } from "../context/auth/AuthState";
 
 // URLs only accessible if logged in
 const PublicRoute = ({ Component }) => {
