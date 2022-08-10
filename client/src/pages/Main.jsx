@@ -1,5 +1,6 @@
 import React from "react";
 import Player from "../components/Player";
+import TrackList from "../components/track/TrackList";
 import { reqConfig, useAuth } from "../context/auth/AuthState";
 import { useSpotify, getTracks } from "../context/spotify/SpotifyState";
 
@@ -15,17 +16,36 @@ const Main = () => {
       getTracks(spotifyDispatch, playlists[0], config);
     });
   };
+  console.log(playlists);
   return (
-    <div>
-      <div>{displayName}</div>
-      <img src={pic} width="80px" height="80px" />
-      <div onClick={newTracks}> get tracks</div>
+    <div className="h-screen">
+      <div className="flex justify-between h-5/6">
+        <div className="h-5/6">
+          <div className="flex items-center">
+            <div className="h-8 w-8 rounded-full">
+              <img src={pic} className="h-8 w-8 rounded-full" />
+            </div>
 
-      <Player />
+            <div>{displayName}</div>
+          </div>
+          <div>
+            {playlists.map((playlist, idx) => (
+              <div key={idx}>{JSON.stringify(playlist.title)}</div>
+            ))}
+          </div>
+
+          <div onClick={newTracks}> get tracks</div>
+        </div>
+        <TrackList />
+
+        {/* <div className="overflow-y-auto">
+          {tracks.map((track, idx) => (
+            <div key={idx}>{JSON.stringify(track.name)}</div>
+          ))}
+        </div> */}
+      </div>
       <div>
-        {tracks.map((track, idx) => (
-          <div key={idx}>{JSON.stringify(track.name)}</div>
-        ))}
+        <Player />
       </div>
     </div>
   );

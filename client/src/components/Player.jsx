@@ -12,8 +12,8 @@ const Player = () => {
 
   if (tracks.length > 0) {
     return (
-      <div className="absolute h-full w-full pl-8 pr-8" style={{ top: "50%" }}>
-        <div className="flex justify-center w-full z-50">
+      <div>
+        <div>
           <SpotifyPlayer
             token={accessToken}
             autoPlay={tracks.length > 0 ? true : false}

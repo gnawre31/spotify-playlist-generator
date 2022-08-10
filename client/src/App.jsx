@@ -6,23 +6,24 @@ import Home from "./pages/Home";
 import Main from "./pages/Main";
 import PrivateRoute from "./routing/PrivateRoute";
 import PublicRoute from "./routing/PublicRoute";
-
 const App = () => {
   return (
-    <AuthState>
-      <SpotifyState>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<PublicRoute Component={Home} />} />
-            <Route
-              exact
-              path="/main"
-              element={<PrivateRoute Component={Main} />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </SpotifyState>
-    </AuthState>
+    <div className="h-screen bg-black text-white">
+      <AuthState>
+        <SpotifyState>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<PublicRoute Component={Home} />} />
+              <Route
+                exact
+                path="/main"
+                element={<PrivateRoute Component={Main} />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </SpotifyState>
+      </AuthState>
+    </div>
   );
 };
 
