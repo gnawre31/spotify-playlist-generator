@@ -19,6 +19,8 @@ export const getTracks = async (dispatch, playlist, reqConfig) => {
     console.log(err);
   }
 };
+export const updatePlayerState = (dispatch, state) =>
+  dispatch({ type: "UPDATE_PLAYER_STATE", payload: state });
 
 const convertToParams = async (input) => {
   let params = "";

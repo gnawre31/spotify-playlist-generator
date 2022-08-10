@@ -1,4 +1,5 @@
 import React from "react";
+import Player from "../components/Player";
 import { reqConfig, useAuth } from "../context/auth/AuthState";
 import { useSpotify, getTracks } from "../context/spotify/SpotifyState";
 
@@ -15,6 +16,7 @@ const Main = () => {
       <div>main</div>
       <div>main page</div>
       <div onClick={newTracks}>get tracks</div>
+      <Player />
     </div>
   );
 };

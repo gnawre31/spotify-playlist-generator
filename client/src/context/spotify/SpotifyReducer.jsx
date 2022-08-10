@@ -5,6 +5,11 @@ const SpotifyReducer = (state, action) => {
         ...state,
         tracks: action.payload,
       };
+    case "UPDATE_PLAYER_STATE":
+      return {
+        ...state,
+        playerState: action.payload,
+      };
     default:
       return state;
   }
