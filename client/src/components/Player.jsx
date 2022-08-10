@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { useAuth } from "../context/auth/AuthState";
 import { useSpotify, updatePlayerState } from "../context/spotify/SpotifyState";
@@ -10,9 +10,6 @@ const Player = () => {
   const [spotifyState, spotifyDispatch] = useSpotify();
   const { tracks } = spotifyState;
 
-  useEffect(() => {
-    console.log(SpotifyPlayer);
-  }, [SpotifyPlayer]);
   if (tracks.length > 0) {
     return (
       <div className="absolute h-full w-full pl-8 pr-8" style={{ top: "50%" }}>

@@ -10,6 +10,7 @@ export const useSpotify = () => {
 };
 
 export const getTracks = async (dispatch, playlist, reqConfig) => {
+  clearTracks(dispatch);
   const params = await convertToParams(playlist.params);
   const endPoint = `https://api.spotify.com/v1/recommendations?${params}`;
   try {
@@ -28,6 +29,10 @@ const convertToParams = async (input) => {
     input[key] !== "" ? (params += "&" + key + "=" + input[key]) : ""
   );
   return params;
+};
+
+const clearTracks = (dispatch) => {
+  dispatch({ type: "CLEAR_TRACKS" });
 };
 
 const SpotifyState = (props) => {

@@ -1,5 +1,10 @@
 const SpotifyReducer = (state, action) => {
   switch (action.type) {
+    case "CLEAR_TRACKS":
+      return {
+        ...state,
+        tracks: [],
+      };
     case "GET_TRACKS":
       return {
         ...state,

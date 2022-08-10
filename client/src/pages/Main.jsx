@@ -7,16 +7,26 @@ const Main = () => {
   const [spotifyState, spotifyDispatch] = useSpotify();
   const [authState, authDispatch] = useAuth();
 
+  const { tracks, playlists } = spotifyState;
+  const { displayName, pic } = authState;
+
   const newTracks = async () => {
-    const config = await reqConfig(authState, authDispatch);
-    getTracks(spotifyDispatch, spotifyState.playlists[0], config);
+    reqConfig(authState, authDispatch).then((config) => {
+      getTracks(spotifyDispatch, playlists[0], config);
+    });
   };
   return (
     <div>
-      <div>main</div>
-      <div>main page</div>
-      <div onClick={newTracks}>get tracks</div>
+      <div>{displayName}</div>
+      <img src={pic} width="80px" height="80px" />
+      <div onClick={newTracks}> get tracks</div>
+
       <Player />
+      <div>
+        {tracks.map((track, idx) => (
+          <div key={idx}>{JSON.stringify(track.name)}</div>
+        ))}
+      </div>
     </div>
   );
 };

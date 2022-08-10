@@ -22,6 +22,9 @@ connectDB();
 // Start Server
 const app = express();
 
+// middleware to parse request body
+app.use(express.json());
+
 // Static File Declaration
 app.use(express.static(path.join(__dirname, "client/build")));
 

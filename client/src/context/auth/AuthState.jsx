@@ -16,9 +16,27 @@ export const reqConfig = async (state, dispatch) => {
       Authorization: "Bearer " + state.accessToken,
     },
   };
+
   return config;
 };
 
+const saveAccessToken = async (state, accessToken) => {
+  const body = {
+    spotifyId: state.spotifyId,
+    accessToken: accessToken,
+  };
+  try {
+    axios.post(
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:5001/api/saveToken"
+        : "/api/saveToken",
+      body,
+      {
+        withCredentials: true,
+      }
+    );
+  } catch (err) {}
+};
 const refreshAccessToken = async (state, dispatch) => {
   const body = {
     grant_type: "refresh_token",
@@ -42,7 +60,11 @@ const refreshAccessToken = async (state, dispatch) => {
         },
       }
     );
-    dispatch({ type: "SET_ACCESS_TOKEN", payload: res.data.access_token });
+    await dispatch({
+      type: "SET_ACCESS_TOKEN",
+      payload: res.data.access_token,
+    });
+    saveAccessToken(state, res.data.access_token);
   } catch (err) {
     console.log(err);
   }

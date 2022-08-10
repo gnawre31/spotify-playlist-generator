@@ -1,4 +1,5 @@
 const express = require("express");
+const User = require("../models/User");
 const router = express.Router();
 
 // DESC    User
@@ -19,6 +20,21 @@ router.get("/user", (req, res) => {
         displayName: null,
         pic: null,
       });
+});
+
+// @desc    User
+// @route   POST /saveToken
+router.post("/saveToken", (req, res) => {
+  if (req.isAuthenticated()) {
+    User.findOneAndUpdate(
+      { spotifyId: req.body.spotifyId },
+      {
+        $set: {
+          accessToken: req.body.accessToken,
+        },
+      }
+    );
+  } else res.json({ error: "please login" });
 });
 
 module.exports = router;
