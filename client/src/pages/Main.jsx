@@ -1,22 +1,17 @@
 import React from "react";
 import Player from "../components/Player";
+import PlaylistList from "../components/playlist/PlaylistList";
 import TrackList from "../components/track/TrackList";
 import { reqConfig, useAuth } from "../context/auth/AuthState";
-import { useSpotify, getTracks } from "../context/spotify/SpotifyState";
+import { useSpotify } from "../context/spotify/SpotifyState";
 
 const Main = () => {
   const [spotifyState, spotifyDispatch] = useSpotify();
-  const [authState, authDispatch] = useAuth();
-
-  const { tracks, playlists } = spotifyState;
+  const [authState] = useAuth();
   const { displayName, pic } = authState;
 
-  const newTracks = async () => {
-    reqConfig(authState, authDispatch).then((config) => {
-      getTracks(spotifyDispatch, playlists[0], config);
-    });
-  };
-  console.log(playlists);
+
+
   return (
     <div className="h-screen">
       <div className="flex justify-between h-5/6">
@@ -28,13 +23,7 @@ const Main = () => {
 
             <div>{displayName}</div>
           </div>
-          <div>
-            {playlists.map((playlist, idx) => (
-              <div key={idx}>{JSON.stringify(playlist.title)}</div>
-            ))}
-          </div>
-
-          <div onClick={newTracks}> get tracks</div>
+          <PlaylistList />
         </div>
         <TrackList />
 

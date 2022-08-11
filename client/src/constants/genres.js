@@ -126,3 +126,22 @@ export const genres = {
   workOut: "work-out",
   worldMusic: "world-music",
 };
+
+export const genreList = [
+  genres.pop,
+  genres.hipHop,
+  genres.dance,
+  genres.rock,
+  genres.country,
+  genres.classical,
+  genres.rnb,
+  genres.metal,
+  genres.anime,
+  genres.alternative,
+  genres.kPop,
+  genres.reggae,
+  genres.piano,
+  genres.jazz,
+  genres.jPop,
+  genres.latin,
+];
