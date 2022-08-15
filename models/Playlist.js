@@ -94,4 +94,4 @@ const PlaylistSchema = new mongoose.Schema({
   },
 });
 
-module.exports = PlaylistSchema;
+module.exports = mongoose.model("Playlist", PlaylistSchema);

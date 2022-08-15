@@ -4,6 +4,11 @@ import SpotifyContext from "./spotifyContext";
 import spotifyReducer from "./SpotifyReducer";
 import axios from "axios";
 
+const config = {
+  withCredentials: true,
+  credentials: "include",
+};
+
 export const useSpotify = () => {
   const { state, dispatch } = useContext(SpotifyContext);
   return [state, dispatch];
@@ -23,6 +28,30 @@ export const getTracks = async (dispatch, playlist, reqConfig) => {
 export const updatePlayerState = (dispatch, state) =>
   dispatch({ type: "UPDATE_PLAYER_STATE", payload: state });
 
+
+export const getAllPlaylists = async (dispatch) => {
+  const playlists = await axios.get("http://localhost:5001/api/playlist/all", config)
+  dispatch({ type: "GET_ALL_PLAYLISTS", payload: playlists.data })
+}
+
+export const createPlaylist = async (dispatch, playlist) => {
+  try {
+    const savedPlaylist = await axios.post("http://localhost:5001/api/playlist/create", playlist, config)
+    dispatch({ type: "CREATE_PLAYLIST", payload: savedPlaylist.data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const deletePlaylist = async (dispatch, id) => {
+  try {
+    await axios.post("http://localhost:5001/api/playlist/delete", id, config)
+    dispatch({ type: "DELETE_PLAYLIST", payload: id })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const convertToParams = async (input) => {
   let params = "";
   Object.keys(input).forEach((key) =>
@@ -38,10 +67,11 @@ const clearTracks = (dispatch) => {
 const SpotifyState = (props) => {
   const initialState = {
     tracks: [],
-    playlists: defaultPlaylists,
+    playlists: [],
     playerState: null,
   };
   const [state, dispatch] = useReducer(spotifyReducer, initialState);
+
   return (
     <SpotifyContext.Provider value={{ state, dispatch }}>
       {props.children}

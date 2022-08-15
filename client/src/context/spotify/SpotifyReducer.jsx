@@ -15,6 +15,16 @@ const SpotifyReducer = (state, action) => {
         ...state,
         playerState: action.payload,
       };
+    case "GET_ALL_PLAYLISTS":
+      return {
+        ...state,
+        playlists: action.payload
+      }
+    case "CREATE_PLAYLIST":
+      return {
+        ...state,
+        playlists: [...state.playlists, action.payload]
+      }
     default:
       return state;
   }

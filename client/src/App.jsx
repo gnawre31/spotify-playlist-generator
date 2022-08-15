@@ -9,8 +9,9 @@ import PublicRoute from "./routing/PublicRoute";
 const App = () => {
   return (
     <div className="h-screen bg-black text-white">
-      <AuthState>
-        <SpotifyState>
+      <SpotifyState>
+        <AuthState>
+
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<PublicRoute Component={Home} />} />
@@ -21,8 +22,9 @@ const App = () => {
               />
             </Routes>
           </BrowserRouter>
-        </SpotifyState>
-      </AuthState>
+
+        </AuthState>
+      </SpotifyState>
     </div>
   );
 };

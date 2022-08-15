@@ -3,6 +3,8 @@ import AuthContext from "./authContext";
 import authReducer from "./AuthReducer";
 import axios from "axios";
 import QueryString from "qs";
+import { getAllPlaylists, useSpotify } from "../spotify/SpotifyState";
+
 
 export const useAuth = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -35,7 +37,7 @@ const saveAccessToken = async (state, accessToken) => {
         withCredentials: true,
       }
     );
-  } catch (err) {}
+  } catch (err) { }
 };
 const refreshAccessToken = async (state, dispatch) => {
   const body = {
@@ -54,8 +56,8 @@ const refreshAccessToken = async (state, dispatch) => {
             "basic " +
             window.btoa(
               import.meta.env.VITE_SPOTIFY_CLIENT_ID +
-                ":" +
-                import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
+              ":" +
+              import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
             ),
         },
       }
@@ -71,6 +73,7 @@ const refreshAccessToken = async (state, dispatch) => {
 };
 
 const AuthState = (props) => {
+  const [spotifyState, spotifyDispatch] = useSpotify()
   useEffect(() => {
     const getUser = async () => {
       const res = await axios.get(
@@ -83,7 +86,13 @@ const AuthState = (props) => {
       );
       dispatch({ type: "GET_USER", payload: res });
     };
-    getUser();
+    try {
+      getUser().then(() => getAllPlaylists(spotifyDispatch))
+    } catch (err) {
+      console.log(err)
+    }
+
+
   }, []);
   const initialState = {
     spotifyId: null,

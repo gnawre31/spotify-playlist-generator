@@ -21,7 +21,7 @@ const Modal = ({ open, close }) => {
                                 </button>
                             </div>
                             <div className="overflow-y-auto overflow-x-hidden w-full flex-1 mb-2">
-                                <NewPlaylistForm />
+                                <NewPlaylistForm close={close} />
                             </div>
                         </div>
                     </div>

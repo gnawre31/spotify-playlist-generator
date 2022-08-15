@@ -1,7 +1,6 @@
 export const defaultPlaylists = [
   {
     title: "Dance",
-    unified: "1f525",
     color: "#9427A3",
     params: {
       // GENERAL ------------------------------
