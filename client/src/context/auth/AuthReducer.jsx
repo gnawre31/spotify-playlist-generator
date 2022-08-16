@@ -14,6 +14,15 @@ const AuthReducer = (state, action) => {
         ...state,
         accessToken: action.payload,
       };
+    case "CLEAR_STATE":
+      return {
+        spotifyId: null,
+        accessToken: null,
+        refreshToken: null,
+        displayName: null,
+        pic: null,
+      }
+
     default:
       return state;
   }

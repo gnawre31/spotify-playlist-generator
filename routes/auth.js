@@ -42,8 +42,12 @@ router.get(
 // DESC    Logout User
 // ROUTE   GET api/auth/logout
 router.get("/spotify/logout", (req, res) => {
-  req.logout();
-  res.redirect(failureRedirect);
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 module.exports = router;

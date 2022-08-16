@@ -72,6 +72,15 @@ const refreshAccessToken = async (state, dispatch) => {
   }
 };
 
+export const logout = async (dispatch) => {
+  try {
+    const res = await axios.get("http://localhost:5001/api/auth/spotify/logout")
+    if (res.status === 200) dispatch({ type: "CLEAR_STATE" })
+  } catch (err) {
+
+  }
+}
+
 const AuthState = (props) => {
   const [spotifyState, spotifyDispatch] = useSpotify()
   useEffect(() => {
