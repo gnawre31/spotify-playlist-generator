@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, "client/dist")));
 const origin =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://spotify-quick-play.herokuapp.com";
+    : "https://spotifyplaynow.herokuapp.com";
 console.log(origin);
 app.use(
   cors({
