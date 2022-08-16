@@ -26,7 +26,7 @@ const app = express();
 app.use(express.json());
 
 // Static File Declaration
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 
 // CORS Middleware
 // app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
@@ -68,10 +68,10 @@ app.use("/api/playlist", require("./routes/playlist"));
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
-  app.use(express.static("client/build"));
+  app.use(express.static("client/dist"));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
   );
 }
 
