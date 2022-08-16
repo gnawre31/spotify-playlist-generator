@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/all", (req, res) => {
   if (req.isAuthenticated()) {
     Playlist.find({ spotifyId: req.user.spotifyId }, (err, result) => {
-      if (err) console.log(err);
+      if (err) res.sendStatus(500);
       else res.send(result);
     });
   }
@@ -15,7 +15,7 @@ router.get("/all", (req, res) => {
 
 // DESC    create new playlist
 // ROUTE   POST /api/playlist
-router.post("/create", async (req, res) => {
+router.post("/create", (req, res) => {
   if (req.isAuthenticated()) {
     Playlist.create(
       {
@@ -42,10 +42,23 @@ router.post("/create", async (req, res) => {
         },
       },
       (err, result) => {
-        if (err) console.log(err);
+        if (err) res.sendStatus(500);
         else res.send(result);
       }
     );
+  } else res.sendStatus(400);
+});
+
+// DESC    delete playlist
+// ROUTE   POST /api/playlist
+router.post("/delete", (req, res) => {
+  if (req.isAuthenticated()) {
+    Playlist.findOneAndRemove({ _id: req.body._id }, (err) => {
+      if (err) res.sendStatus(500);
+      else res.sendStatus(200);
+    });
+  } else {
+    res.sendStatus(400);
   }
 });
 

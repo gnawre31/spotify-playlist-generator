@@ -25,6 +25,11 @@ const SpotifyReducer = (state, action) => {
         ...state,
         playlists: [...state.playlists, action.payload]
       }
+    case "DELETE_PLAYLIST":
+      return {
+        ...state,
+        playlists: state.playlists.filter(p => p._id !== action.payload)
+      }
     default:
       return state;
   }

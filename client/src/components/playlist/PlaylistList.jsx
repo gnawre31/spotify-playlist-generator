@@ -13,13 +13,16 @@ const PlaylistList = () => {
 
 
   return (
-    <div>
-      <div>
+    <div className='h-full'>
+      <div className='text-2xl font-bold mb-2'>Playlists</div>
+      <div className='grid grid-cols-3 gap-4 h-full overflow-y-hidden overflow-y-scroll no-scrollbar'>
+        <NewPlaylist />
         {playlists.map((playlist, idx) => (
           <Playlist key={idx} playlist={playlist} />
         ))}
+
       </div>
-      <NewPlaylist />
+
 
     </div>
   )

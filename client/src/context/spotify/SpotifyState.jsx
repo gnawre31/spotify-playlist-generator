@@ -44,8 +44,10 @@ export const createPlaylist = async (dispatch, playlist) => {
 }
 
 export const deletePlaylist = async (dispatch, id) => {
+
+  // console.log(id)
   try {
-    await axios.post("http://localhost:5001/api/playlist/delete", id, config)
+    await axios.post("http://localhost:5001/api/playlist/delete", { _id: id }, config)
     dispatch({ type: "DELETE_PLAYLIST", payload: id })
   } catch (err) {
     console.log(err)
