@@ -29,11 +29,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/dist")));
 
 // CORS Middleware
-// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-const origin =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://spotifyplaynow.herokuapp.com";
+const origin = "https://spotifyplaynow.herokuapp.com";
 console.log(origin);
 app.use(
   cors({

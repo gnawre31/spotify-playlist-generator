@@ -6,7 +6,7 @@ const Home = () => {
       <div>home</div>
       <div>
         <a
-          href="http://spotifyplaynow.herokuapp.com/api/auth/spotify"
+          href="https://spotifyplaynow.herokuapp.com/api/auth/spotify"
         >
           Login
           <div></div>

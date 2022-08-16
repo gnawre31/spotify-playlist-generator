@@ -22,18 +22,12 @@ router.get(
 // DESC    Spotify OAuth Callback
 // ROUTE   GET api/auth/spotify/callback
 
-const successRedirect =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/main"
-    : "/main";
-const failureRedirect =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "/";
+const successRedirect = "https://spotifyplaynow.herokuapp.com/main";
+const failureRedirect = "https://spotifyplaynow.herokuapp.com/";
 
 router.get(
   "/spotify/callback",
   passport.authenticate("spotify", {
-    // successRedirect: "http://localhost:3000/main",
-    // failureRedirect: "http://localhost:3000/",
     successRedirect: successRedirect,
     failureRedirect: failureRedirect,
   })
