@@ -30,13 +30,13 @@ export const updatePlayerState = (dispatch, state) =>
 
 
 export const getAllPlaylists = async (dispatch) => {
-  const playlists = await axios.get("http://localhost:5001/api/playlist/all", config)
+  const playlists = await axios.get("http://spotifyplaynow.herokuapp.com/api/playlist/all", config)
   dispatch({ type: "GET_ALL_PLAYLISTS", payload: playlists.data })
 }
 
 export const createPlaylist = async (dispatch, playlist) => {
   try {
-    const savedPlaylist = await axios.post("http://localhost:5001/api/playlist/create", playlist, config)
+    const savedPlaylist = await axios.post("http://spotifyplaynow.herokuapp.com/api/playlist/create", playlist, config)
     dispatch({ type: "CREATE_PLAYLIST", payload: savedPlaylist.data })
   } catch (err) {
     console.log(err)
@@ -47,7 +47,7 @@ export const deletePlaylist = async (dispatch, id) => {
 
   // console.log(id)
   try {
-    await axios.post("http://localhost:5001/api/playlist/delete", { _id: id }, config)
+    await axios.post("http://spotifyplaynow.herokuapp.com/api/playlist/delete", { _id: id }, config)
     dispatch({ type: "DELETE_PLAYLIST", payload: id })
   } catch (err) {
     console.log(err)

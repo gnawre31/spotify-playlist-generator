@@ -6,11 +6,7 @@ const Home = () => {
       <div>home</div>
       <div>
         <a
-          href={
-            import.meta.env.MODE === "development"
-              ? "http://localhost:5001/api/auth/spotify"
-              : "/api/auth/spotify"
-          }
+          href="http://spotifyplaynow.herokuapp.com/api/auth/spotify"
         >
           Login
           <div></div>
