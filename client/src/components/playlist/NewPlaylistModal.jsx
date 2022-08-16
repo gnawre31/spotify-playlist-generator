@@ -13,7 +13,7 @@ const Modal = ({ open, close }) => {
                         style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
                         onClick={() => close()}
                     >
-                        <div className="bg-white w-4/5 h-4/5 rounded-xl pt-2 pb-2 pl-4 pr-4 relative flex flex-col" onClick={(e) => e.stopPropagation()}>
+                        <div className="bg-white w-4/5 h-3/5 rounded-xl pt-2 pb-2 pl-4 pr-4 relative flex flex-col" onClick={(e) => e.stopPropagation()}>
                             <div className="flex justify-between text-xl font-bold mb-4">
                                 <div> New Playlist </div>
                                 <button className="close" onClick={() => close()}>
