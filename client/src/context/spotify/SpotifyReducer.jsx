@@ -8,8 +8,14 @@ const SpotifyReducer = (state, action) => {
     case "GET_TRACKS":
       return {
         ...state,
-        tracks: action.payload,
+        currPlaylist: action.payload.currPlaylist,
+        tracks: action.payload.tracks,
       };
+    // case "SET_TRACK":
+    //   return {
+    //     ...state,
+    //     playerState: { ...state.playerState, track: action.payload }
+    //   }
     case "UPDATE_PLAYER_STATE":
       return {
         ...state,
@@ -28,6 +34,7 @@ const SpotifyReducer = (state, action) => {
     case "DELETE_PLAYLIST":
       return {
         ...state,
+        currPlaylist: state.currPlaylist === action.payload ? null : state.currPlaylist,
         playlists: state.playlists.filter(p => p._id !== action.payload)
       }
     default:

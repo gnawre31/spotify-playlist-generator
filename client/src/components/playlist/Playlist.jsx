@@ -6,7 +6,6 @@ const Playlist = (props) => {
     const [spotifyState, spotifyDispatch] = useSpotify();
     const [authState, authDispatch] = useAuth();
 
-
     const { playlist } = props
 
     const newTracks = async () => {
@@ -16,7 +15,7 @@ const Playlist = (props) => {
     };
     const removePlaylist = async (e) => {
         e.stopPropagation();
-        deletePlaylist(spotifyDispatch, playlist._id);
+        deletePlaylist(spotifyDispatch, playlist._id, spotifyState.currPlaylist);
 
     }
     const Triangle = ({ width = 0, height = 0, fill = "black" } = {}) => {
@@ -30,14 +29,20 @@ const Playlist = (props) => {
         );
     };
 
+
+    const playlistStyle = playlist._id === spotifyState.currPlaylist ? 'bg-[#1DB954]' : "bg-gray-800"
+    const buttonStyle = playlist._id === spotifyState.currPlaylist ? 'bg-white hover:bg-[#f2f2f2] text-gray-500' : 'bg-gray-700 hover:bg-gray-600'
+    const iconFill = playlist._id === spotifyState.currPlaylist ? '#1DB954' : 'grey'
+
+
     return (
-        <div className='bg-gray-800 flex  flex-col items-center rounded-xl ' >
+        <div className={'flex flex-col items-center rounded-xl col-span-1 h-72 ' + playlistStyle} >
             <div className='flex justify-between w-full items-center'>
-                <div className='truncate text-overflow pl-4 pr-4'>{playlist.title}</div>
-                <div onClick={removePlaylist} className='h-8 w-8 flex items-center cursor-pointer justify-center bg-gray-700 rounded-full text-sm m-2 hover:bg-gray-200 hover:text-black'>X</div>
+                <p className='truncate text-overflow pl-4 pr-4'>{playlist.title}</p>
+                <button onClick={removePlaylist} className={'h-8 w-8 flex items-center cursor-pointer justify-center rounded-full text-sm m-2 ' + buttonStyle}>X</button>
             </div>
-            <div onClick={newTracks} className='cursor-pointer mt-12 h-24 mb-12 w-24 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center'><Triangle width={24} height={24} fill="gray" /></div>
-        </div>
+            <button onClick={newTracks} className={'cursor-pointer m-auto h-24 w-24 rounded-full flex items-center justify-center ' + buttonStyle}><Triangle width={24} height={24} fill={iconFill} /></button>
+        </div >
     )
 }
 

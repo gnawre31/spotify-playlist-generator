@@ -27,9 +27,9 @@ const Main = () => {
 
               <div className="text-2xl ">{displayName}</div>
             </div>
-            <div onClick={logUserOut} className="pb-2 pt-2 pr-6 pl-6 rounded-full bg-gray-800 hover:bg-gray-600 cursor pointer">
+            <button onClick={logUserOut} className="pb-2 pt-2 pr-6 pl-6 rounded-full bg-gray-800 hover:bg-gray-600 cursor pointer">
               logout
-            </div>
+            </button>
           </div>
           <PlaylistList />
         </div>
