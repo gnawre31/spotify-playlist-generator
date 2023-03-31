@@ -22,8 +22,11 @@ router.get(
 // DESC    Spotify OAuth Callback
 // ROUTE   GET api/auth/spotify/callback
 
-const successRedirect = "https://spotifyplaynow.herokuapp.com/main";
-const failureRedirect = "https://spotifyplaynow.herokuapp.com/";
+// const successRedirect = "https://spotifyplaynow.herokuapp.com/main";
+// const failureRedirect = "https://spotifyplaynow.herokuapp.com/";
+
+const successRedirect = "http://localhost:3000/main";
+const failureRedirect = "http://localhost:3000/main";
 
 router.get(
   "/spotify/callback",

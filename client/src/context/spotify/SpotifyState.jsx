@@ -20,35 +20,50 @@ export const getTracks = async (dispatch, playlist, reqConfig) => {
   const endPoint = `https://api.spotify.com/v1/recommendations?${params}`;
   try {
     const res = await axios.get(endPoint, reqConfig);
-    dispatch({ type: "GET_TRACKS", payload: res.data.tracks });
+    const data = {
+      tracks: res.data.tracks,
+      currPlaylist: playlist._id
+    }
+    dispatch({ type: "GET_TRACKS", payload: data });
   } catch (err) {
     console.log(err);
   }
 };
+
+// export const setTrack = (dispatch, track) => {
+//   dispatch({ type: "SET_TRACK", payload: track })
+// }
+
+
 export const updatePlayerState = (dispatch, state) =>
   dispatch({ type: "UPDATE_PLAYER_STATE", payload: state });
 
 
 export const getAllPlaylists = async (dispatch) => {
-  const playlists = await axios.get("https://spotifyplaynow.herokuapp.com/api/playlist/all", config)
+  const playlists = await axios.get("http://localhost:5001/api/playlist/all", config)
   dispatch({ type: "GET_ALL_PLAYLISTS", payload: playlists.data })
 }
 
 export const createPlaylist = async (dispatch, playlist) => {
   try {
-    const savedPlaylist = await axios.post("https://spotifyplaynow.herokuapp.com/api/playlist/create", playlist, config)
+    const savedPlaylist = await axios.post("http://localhost:5001/api/playlist/create", playlist, config)
     dispatch({ type: "CREATE_PLAYLIST", payload: savedPlaylist.data })
   } catch (err) {
     console.log(err)
   }
 }
 
-export const deletePlaylist = async (dispatch, id) => {
-
-  // console.log(id)
+export const deletePlaylist = async (dispatch, id, currPlaylist) => {
   try {
-    await axios.post("https://spotifyplaynow.herokuapp.com/api/playlist/delete", { _id: id }, config)
+    // delete from DB
+    await axios.post("http://localhost:5001/api/playlist/delete", { _id: id }, config)
     dispatch({ type: "DELETE_PLAYLIST", payload: id })
+
+    // check if playlist is currently playing tracks
+    // delete if so
+
+    if (id === currPlaylist) clearTracks(dispatch)
+
   } catch (err) {
     console.log(err)
   }
@@ -68,6 +83,7 @@ const clearTracks = (dispatch) => {
 
 const SpotifyState = (props) => {
   const initialState = {
+    currPlaylist: null,
     tracks: [],
     playlists: [],
     playerState: null,

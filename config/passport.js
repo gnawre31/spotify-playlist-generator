@@ -9,8 +9,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-        callbackURL:
-          "https://spotifyplaynow.herokuapp.com/api/auth/spotify/callback",
+        callbackURL: "http://localhost:5001/api/auth/spotify/callback",
       },
       async (accessToken, refreshToken, profile, done) => {
         try {

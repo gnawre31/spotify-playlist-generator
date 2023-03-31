@@ -28,7 +28,7 @@ const NewPlaylistForm = ({ close }) => {
 
     const [spotifyState, spotifyDispatch] = useSpotify()
     const [authState, authDispatch] = useAuth()
-    const [mood, setMood] = useState("")
+    const [mood, setMood] = useState("neutral")
     const [title, setTitle] = useState("")
 
     const changeMood = e => setMood(e.target.value)
@@ -52,36 +52,48 @@ const NewPlaylistForm = ({ close }) => {
         close()
     }
 
+    const radioStyle = 'inline-flex items-center bg-white rounded-md h-24 w-48 border justify-center cursor-pointer mr-4 '
+    const selectedRadioStyle = 'bg-[#1DB954] border-[#1DB954] text-white'
+    const notSelectedRadioStyle = 'bg-gray-200 border-gray-200 text-black hover:bg-gray-300'
+
+    const checkboxStyle = 'inline-flex items-center bg-white rounded-md border h-full w-full justify-center cursor-pointer '
+    const selectedCheckboxStyle = 'bg-[#1DB954] border-[#1DB954] text-white'
+    const notSelectedCheckboxStyle = 'bg-gray-200 border-gray-200 text-black hover:bg-gray-300'
+
     return (
-        <form className='flex flex-col justify-between w-full h-full' onSubmit={onSubmit}>
+        <form className='flex flex-col justify-between w-full h-full pr-16 overflow-y-hidden overflow-y-scroll no-scrollbar' onSubmit={onSubmit}>
             <div className='w-full'>
+                <p className='text-2xl font-bold mb-2'>Title</p>
+                <input id='title' type="text" value={title} onChange={changeTitle} className="rounded-lg bg-gray-200 pl-4 pr-4 pt-2 pb-2 w-80" placeholder='Playlist title...' />
+
+
+                <p className='text-2xl font-bold mb-2 mt-4'>Mood</p>
                 <div>
-                    <label id="title">Title</label>
-                </div>
-                <input id='title' type="text" value={title} onChange={changeTitle} />
-                <div>
-                    <label>Happy
-                        <input name="mood" type="radio" checked={mood === "happy"} value="happy" onChange={changeMood} />
+                    <label className={`${radioStyle} + ${mood === "happy" ? selectedRadioStyle : notSelectedRadioStyle}`}>Happy
+                        <input name="mood" type="radio" checked={mood === "happy"} value="happy" onChange={changeMood} className="hidden" />
                     </label>
-                    <label>Neutral
-                        <input name="mood" type="radio" checked={mood === "neutral"} value="neutral" onChange={changeMood} />
+                    <label className={`${radioStyle} + ${mood === "neutral" ? selectedRadioStyle : notSelectedRadioStyle}`}>Neutral
+                        <input name="mood" type="radio" checked={mood === "neutral"} value="neutral" onChange={changeMood} className="hidden" />
                     </label>
-                    <label>Sad
-                        <input name="mood" type="radio" checked={mood === "sad"} value="sad" onChange={changeMood} />
+                    <label className={`${radioStyle} + ${mood === "sad" ? selectedRadioStyle : notSelectedRadioStyle}`}>Sad
+                        <input name="mood" type="radio" checked={mood === "sad"} value="sad" onChange={changeMood} className="hidden" />
                     </label>
                 </div>
-                <div className='grid grid-cols-4 no-scrollbar m-4' >
+
+                <p className='text-2xl font-bold mb-2 mt-4'>Genres (Choose up to 5)</p>
+                <div className='grid gap-4 w-full h-full grid-cols-4 no-scrollbar' >
                     {genreList.map((g, idx) => <div key={idx}>
-                        <label className='h-full w-full flex'>
-                            <div>{g}</div>
-                            <input name="genre" type="checkbox" onChange={() => dispatch({ value: g })} checked={checkboxGroup.genres.includes(g)} />
+                        <label className={`${checkboxStyle} ${checkboxGroup.genres.includes(g) ? selectedCheckboxStyle : notSelectedCheckboxStyle}`}>
+                            <p className='capitalize'>{g}</p>
+                            <input name="genre" type="checkbox" onChange={() => dispatch({ value: g })} className="hidden" checked={checkboxGroup.genres.includes(g)} />
                         </label>
                     </div>)}
                 </div>
+                <p className='text-2xl font-bold mb-2 mt-8'>All Done!</p>
+
+                <button className="bg-[#1DB954] text-white text-xl pl-16 pr-16 mb-16 h-16" type="submit" >Create my playlist </button>
             </div>
-            <div className="">
-                <button className="bg-green-500 pt-2 pb-2 pl-8 pr-8 rounded-full" type="submit" >create </button>
-            </div>
+
 
         </form>
     )
