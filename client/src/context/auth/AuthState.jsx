@@ -29,7 +29,7 @@ const saveAccessToken = async (state, accessToken) => {
   };
   try {
     axios.post(
-      "https://spotifyplaynow.herokuapp.com/api/saveToken",
+      "http://localhost:5001/api/saveToken",
       body,
       {
         withCredentials: true,
@@ -72,7 +72,7 @@ const refreshAccessToken = async (state, dispatch) => {
 
 export const logout = async (dispatch) => {
   try {
-    const res = await axios.get("https://spotifyplaynow.herokuapp.com/api/auth/spotify/logout")
+    const res = await axios.get("http://localhost:5001/api/auth/spotify/logout")
     if (res.status === 200) dispatch({ type: "CLEAR_STATE" })
   } catch (err) {
 
@@ -83,7 +83,7 @@ const AuthState = (props) => {
   const [spotifyState, spotifyDispatch] = useSpotify()
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("https://spotifyplaynow.herokuapp.com/api/user",
+      const res = await axios.get("http://localhost:5001/api/user",
         {
           withCredentials: true,
         }
